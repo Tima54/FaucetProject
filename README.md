@@ -1,66 +1,29 @@
-## Foundry
+# Faucet Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
-
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+## Installation
+1. Cloner le projet
+2. Installer les dépendances :
+```
+npm i
+```
+3. Pour lancer le serveur :
+```
+npm run dev
 ```
 
-### Test
+## Description
 
-```shell
-$ forge test
-```
+### Etapes du développement
 
-### Format
+Pour ce projet, j'ai commencé par faire le smart contract du faucet (EtherFaucet) suivi de ses tests. Ensuite, la partie de déploiement du contrat et de son implémentation en React est selon la partie qui m'a le plus poser de problème.
 
-```shell
-$ forge fmt
-```
+### Description des fonctionnalités
 
-### Gas Snapshots
+La fonction requestEther est une fonction d'un contrat intelligent sur la blockchain Ethereum. Elle permet à un utilisateur de demander de l'Ether depuis un faucet sous certaines conditions. Ces conditions comprennent une limitation d'une demande par heure par utilisateur et une vérification de la balance du faucet. Si les conditions sont remplies, la fonction envoie 0.0001 Ether à l'utilisateur et enregistre le moment de la dernière demande.
 
-```shell
-$ forge snapshot
-```
+La fonction withdrawEther permet au propriétaire du contrat intelligent de retirer l'ensemble du solde Ether du contrat. Elle est marquée comme étant exécutable uniquement par le propriétaire (onlyOwner). Lorsqu'elle est appelée, la totalité du solde Ether du contrat est transférée à l'adresse du propriétaire.
 
-### Anvil
+La fonction transferOwnership permet au propriétaire actuel du contrat intelligent de transférer la propriété à une nouvelle adresse spécifiée (newOwner). Cette opération change la variable "owner" pour refléter la nouvelle adresse du propriétaire. La fonction est conçue pour être exécutée uniquement par le propriétaire actuel, comme indiqué par le modificateur onlyOwner.
 
-```shell
-$ anvil
-```
 
-### Deploy
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
